@@ -1,6 +1,63 @@
 # bofpy
 Python companion lib based on c++ BofStd
 
+bofpy/
+|-- bofpy/
+|   |-- __init__.py
+|   |-- module1.py
+|   |-- module2.py
+|-- setup.py
+|-- README.md
+|-- LICENSE
+|-- .gitignore
+|-- other_files...
+
+setup.py:
+from setuptools import setup, find_packages
+
+setup(
+    name='BofPy',
+    version='0.1.0',
+    packages=find_packages(),
+    install_requires=[
+        # List your dependencies here
+        'tkhtmlview>=0.2.0',
+    ],
+    entry_points={
+        'console_scripts': [
+            'BofPy=BofPy.Bof_Init:main',  # Optional: If you have command-line scripts
+        ],
+    },
+    author='onbings',
+    author_email='onbings@gmail.com',
+    description='BofPy is a python fork of BofStd C++ library',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
+    url='https://github.com/onbings/bofpy',
+    license='MIT',
+    classifiers=[
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.9',
+    ],
+)
+
+.gitignore:
+__pycache__
+dist/
+build/
+*.egg-info/
+*.pyc
+*.pyo
+*.pyd
+
+tagging release:
+git tag -a v0.1.0 -m "Release version 0.1.0"
+git push origin v0.1.0
+
+
+C:\pro\github\bofpy> pip install git+https://github.com/onbings/bofpy.git@v0.1.0
+
 https://adamj.eu/tech/2019/03/11/pip-install-from-a-git-repository/#:~:text=It's%20quite%20common%20to%20want,install%20it%20directly%20via%20Git.
 
 Yes, you can host a personal Python package on GitHub and use `pip` to install it. Here's a general guide on how to do it:
