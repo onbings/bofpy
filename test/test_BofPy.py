@@ -10,6 +10,7 @@ from bofpy.BofPy import (
     DATA_TYPE,
     Bof_Init,
     Bof_Shutdown,
+    Bof_GetVersion,
     Bof_ExitApp,
     Bof_IsInteger,
     Bof_MsSleep,
@@ -44,6 +45,9 @@ class TestBofPy(unittest.TestCase):
         # No specific behavior to test for Bof_Shutdown
         pass
 
+    def test_Bof_GetVersion(self):
+        self.assertEqual(Bof_GetVersion(), "0.1.1")
+    
     def test_Bof_ExitApp(self):
         with self.assertRaises(SystemExit) as cm:
             Bof_ExitApp("Test exit message", 1)

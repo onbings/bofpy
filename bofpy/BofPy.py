@@ -33,6 +33,9 @@ def Bof_Init(app_name:str)->Tuple[str,str]:
 def Bof_Shutdown():
     pass
 
+def Bof_GetVersion()->str:
+    return "0.1.1"  #chg also in C:\pro\github\bofpy\setup.py
+
 def Bof_ExitApp(msg, exit_code):
     print(f"{msg}")
     print(f"exit_app with code {exit_code}")
