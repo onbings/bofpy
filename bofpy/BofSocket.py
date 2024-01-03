@@ -1,7 +1,7 @@
 import socket
 import ftplib
-import bofpy.BofPy  
-import bofpy.BofSocket
+import BofPy  
+import BofSocket
 from typing import Tuple, List
 from enum import auto,Enum
 

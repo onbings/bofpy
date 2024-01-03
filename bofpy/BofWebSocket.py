@@ -1,8 +1,8 @@
 import websocket
 import threading
-import time 
+#import time 
 import json
-import BofStd
+import BofPy
 
 from enum import Enum
 from typing import Tuple
@@ -44,7 +44,7 @@ class WebSocketClient():
 
     def send_command(self, timeout_in_ms:int, cmd:str)->Tuple[bool,str]:
         if self.state == WebSocketClientState.OPEN:
-            start_time_in_ms = BofStd.Bof_GetMsTickCount()
+            start_time_in_ms = BofPy.Bof_GetMsTickCount()
             self.reply=None
             self.wait_for_cmd_reply = True
             self.reply_id = self.s_seq_id
@@ -55,12 +55,12 @@ class WebSocketClient():
                 cmd += "&seq=" + str(self.reply_id)
             else:
                 cmd += "?seq=" + str(self.reply_id) 
-            #print(f"Send seq '{self.reply_id}' cmd '{cmd}'.")   
+            print(f"Send seq '{self.reply_id}' cmd '{cmd}'.")   
             self.ws.send(cmd)
             while self.state == WebSocketClientState.OPEN and self.wait_for_cmd_reply:
-                if BofStd.Bof_ElapsedMsTime(start_time_in_ms) >= timeout_in_ms:
+                if BofPy.Bof_ElapsedMsTime(start_time_in_ms) >= timeout_in_ms:
                     return False,None
-                BofStd.Bof_MsSleep(1)      
+                BofPy.Bof_MsSleep(1)      
             #print(f"Final check: state '{self.state}' wait '{self.wait_for_cmd_reply}' reply '{self.reply}'.")         
             if self.state == WebSocketClientState.OPEN and not self.wait_for_cmd_reply:
                 try:
@@ -118,11 +118,11 @@ class WebSocketClient():
         self.client_thread = threading.Thread(target=self._do_connect, args=(url,))
         #self.client_thread = threading.Thread(target=self._do_connect, args=("ws://127.0.0.1:8080",))
         self.client_thread.start()
-        start_time_in_ms = BofStd.Bof_GetMsTickCount()
+        start_time_in_ms = BofPy.Bof_GetMsTickCount()
         while self.state != WebSocketClientState.OPEN:
-            if BofStd.Bof_ElapsedMsTime(start_time_in_ms) >= timeout_in_ms:
+            if BofPy.Bof_ElapsedMsTime(start_time_in_ms) >= timeout_in_ms:
               return False
-            BofStd.Bof_MsSleep(100)
+            BofPy.Bof_MsSleep(100)
         return True
     
     def disconnect(self):
